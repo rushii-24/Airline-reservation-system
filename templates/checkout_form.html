@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Flight</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Book Your Flight</h2>
+        <p><strong>From:</strong> {{ flight.origin }}</p>
+        <p><strong>To:</strong> {{ flight.destination }}</p>
+        <p><strong>Airline:</strong> {{ flight.airline }}</p>
+        <p><strong>Departure:</strong> {{ flight.departure }}</p>
+        <p><strong>Price:</strong> ₹{{ flight.price }}</p>
+
+        <form action="" method="POST">
+            <div>
+                <label for="name">Full Name:</label>
+                <input type="text" name="name" required>
+            </div>
+
+            <div>
+                <label for="email">Email Address:</label>
+                <input type="email" name="email" required>
+            </div>
+
+            <button type="submit">Confirm Booking</button>
+        </form>
+
+        <a href="{{ url_for('search') }}">← Back to Search</a>
+    </div>
+</body>
+</html>

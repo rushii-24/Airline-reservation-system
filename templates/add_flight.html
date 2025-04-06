@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Flight</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Add New Flight</h1>
+    <form method="POST">
+        <label>Flight Number:</label>
+        <input type="text" name="flight_number" placeholder="Flight Number" required>
+        
+        <label>Origin:</label>
+        <input type="text" name="origin" placeholder="Origin" required>
+
+        <label>Destination:</label>
+        <input type="text" name="destination" placeholder="Destination" required>
+
+        <label>Departure Time:</label>
+        <input type="text" name="departure_time" placeholder="YYYY-MM-DD HH:MM" required>
+
+        <label>Price:</label>
+        <input type="number" name="price" placeholder="Price" required>
+
+        <button type="submit">Add Flight</button>
+    </form>
+</body>
+</html>

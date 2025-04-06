@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Admin Panel - Flight Management</h1>
+    <a href="{{ url_for('add_flight') }}">Add New Flight</a>
+    <ul>
+        {% for flight in flights %}
+        <li>
+            {{ flight.flight_number }} - {{ flight.origin }} to {{ flight.destination }} - ${{ flight.price }}
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .about-container {
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: auto;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .about-image {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="about-container">
+        <h1>About Our Flight Booking System</h1>
+        <p>We are committed to providing the best flight booking experience for our customers.</p>
+
+        <img src="{{ url_for('static', filename='images/flight1.jpg') }}" class="about-image" alt="Flight Image 1">
+        
+        <p>Our mission is to make flight bookings seamless and hassle-free.</p>
+
+        <img src="{{ url_for('static', filename='images/flight2.jpg') }}" class="about-image" alt="Flight Image 2">
+        
+        <p>We offer the best prices and a variety of airlines to choose from.</p>
+    </div>
+
+</body>
+</html>

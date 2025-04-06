@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Flight</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Booking for {{ flight.flight_number }}</h1>
+    <p>From: {{ flight.origin }}</p>
+    <p>To: {{ flight.destination }}</p>
+    <p>Price: ${{ flight.price }}</p>
+
+    <form method="POST">
+        <label>Card Number:</label>
+        <input type="text" name="card_number" placeholder="1234-5678-9012-3456" required>
+        <button type="submit">Confirm Booking</button>
+    </form>
+
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>
