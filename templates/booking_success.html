@@ -87,6 +87,10 @@
         </div>
 
         <a href="{{ url_for('home') }}" class="btn">Go to Home</a>
+        <a href="{{ url_for('download_ticket', booking_id=booking_id) }}" class="btn btn-primary">
+            📄 Download E-Ticket (PDF)
+        </a>
+        
     </div>
 </body>
 </html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flight E-Ticket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        .ticket-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .ticket-header {
+            text-align: center;
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: #2C3E50;
+        }
+        .ticket-header p {
+            font-size: 16px;
+            color: #95A5A6;
+        }
+        .ticket-details {
+            margin-top: 20px;
+        }
+        .ticket-details p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .ticket-details p strong {
+            font-weight: bold;
+            color: #2C3E50;
+        }
+        hr {
+            border: 1px solid #E1E1E1;
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #95A5A6;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket-container">
+        <div class="ticket-header">
+            <h2>Flight E-Ticket</h2>
+            <p>Booking ID: {{ booking['id'] }}</p>
+        </div>
+        <div class="ticket-details">
+            <p><strong>Passenger Name:</strong> {{ booking['name'] }}</p>
+            <p><strong>Airline:</strong> {{ booking['airline'] }}</p>
+            <p><strong>Departure Time:</strong> {{ booking['departure'] }}</p>
+            <p><strong>From:</strong> {{ booking['origin'] }} <strong>to</strong> {{ booking['destination'] }}</p>
+            <p><strong>Ticket Price:</strong> ${{ booking['price'] }}</p>
+        </div>
+        <hr>
+        <p>Thank you for booking with us! We hope you have a pleasant flight.</p>
+        <div class="footer">
+            <p>For any inquiries, please contact our support team.</p>
+        </div>
+    </div>
+</body>
+</html>
