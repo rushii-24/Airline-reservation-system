@@ -3,20 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Book Flight</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Booking for {{ flight.flight_number }}</h1>
-    <p>From: {{ flight.origin }}</p>
-    <p>To: {{ flight.destination }}</p>
-    <p>Price: ${{ flight.price }}</p>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
+        <h1 class="text-2xl font-bold text-blue-700 mb-4">
+            Booking for Flight {{ flight.flight_number }}
+        </h1>
 
-    <form method="POST">
-        <label>Card Number:</label>
-        <input type="text" name="card_number" placeholder="1234-5678-9012-3456" required>
-        <button type="submit">Confirm Booking</button>
-    </form>
+        <div class="space-y-2 mb-6">
+            <p><span class="font-semibold">From:</span> {{ flight.origin }}</p>
+            <p><span class="font-semibold">To:</span> {{ flight.destination }}</p>
+            <p><span class="font-semibold">Price:</span> ${{ flight.price }}</p>
+        </div>
 
-    <a href="{{ url_for('index') }}">Back to Home</a>
+        <form method="POST" class="space-y-4">
+            <div>
+                <label for="card_number" class="block text-sm font-medium text-gray-700">Card Number</label>
+                <input
+                    type="text"
+                    id="card_number"
+                    name="card_number"
+                    placeholder="1234-5678-9012-3456"
+                    required
+                    class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+            </div>
+            <button
+                type="submit"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition duration-200"
+            >
+                Confirm Booking
+            </button>
+        </form>
+
+        <div class="mt-6 text-center">
+            <a href="{{ url_for('index') }}" class="text-blue-600 hover:underline">
+                ← Back to Home
+            </a>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,72 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard - Bookings</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f7f9fc;
+            color: #333;
         }
-        .dashboard-container {
-            margin: 50px auto;
-            max-width: 1200px;
+        h1 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 40px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        th, td {
+            border-bottom: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .logout {
+            float: right;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #e74c3c;
+            text-decoration: none;
+            padding: 8px 12px;
+            border: 1px solid #e74c3c;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .logout:hover {
+            background-color: #e74c3c;
+            color: white;
+        }
+        a.download-link {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        a.download-link:hover {
+            text-decoration: underline;
         }
         h2 {
-            margin-bottom: 30px;
+            color: #34495e;
+            margin-bottom: 10px;
         }
-        .logout-btn {
-            float: right;
-        }
-        .table thead {
-            background-color: #343a40;
-            color: white;
+        /* Responsive for smaller screens */
+        @media(max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            tr {
+                margin-bottom: 15px;
+                border-bottom: 2px solid #ddd;
+            }
+            th {
+                background-color: transparent;
+                color: #555;
+                text-align: right;
+                padding-right: 50%;
+                position: relative;
+            }
+            th::after {
+                content: ":";
+                position: absolute;
+                right: 15px;
+            }
+            td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 15px;
+                font-weight: bold;
+                text-align: left;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
-        <div class="d-flex justify-content-between align-items-center">
-            <h2>Admin Dashboard - Bookings</h2>
-            <a href="{{ url_for('admin_logout') }}" class="btn btn-danger logout-btn">Logout</a>
-        </div>
 
-        {% if bookings %}
-            <div class="table-responsive mt-4">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>Booking ID</th>
-                            <th>Passenger Name</th>
-                            <th>Email</th>
-                            <th>Flight</th>
-                            <th>Origin</th>
-                            <th>Destination</th>
-                            <th>Departure</th>
-                            <th>Airline</th>
-                            <th>Price (₹)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for booking in bookings %}
-                            <tr>
-                                <td>{{ booking.id }}</td>
-                                <td>{{ booking.name }}</td>
-                                <td>{{ booking.email }}</td>
-                                <td>#{{ booking.flight_id }}</td>
-                                <td>{{ booking.origin }}</td>
-                                <td>{{ booking.destination }}</td>
-                                <td>{{ booking.departure }}</td>
-                                <td>{{ booking.airline }}</td>
-                                <td>{{ booking.price }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+<h1>Admin Dashboard</h1>
+<a href="{{ url_for('admin_logout') }}" class="logout">Logout</a>
+
+<h2>All Bookings</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Booking ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Aadhar</th>
+            <th>Airline</th>
+            <th>Origin</th>
+            <th>Destination</th>
+            <th>Departure</th>
+            <th>Price</th>
+            <th>Download Ticket</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for booking in bookings %}
+        <tr>
+            <td data-label="Booking ID">{{ booking.id }}</td>
+            <td data-label="Name">{{ booking.name }}</td>
+            <td data-label="Email">{{ booking.email }}</td>
+            <td data-label="Phone">{{ booking.mobile or "N/A" }}</td>
+            <td data-label="Aadhar">{{ booking.identity_proof or "N/A" }}</td>
+            <td data-label="Airline">{{ booking.airline }}</td>
+            <td data-label="Origin">{{ booking.origin }}</td>
+            <td data-label="Destination">{{ booking.destination }}</td>
+            <td data-label="Departure">{{ booking.departure }}</td>
+            <td data-label="Price">${{ booking.price }}</td>
+            <td data-label="Download Ticket">
+                <a href="{{ url_for('download_ticket', booking_id=booking.id) }}" target="_blank" class="download-link">Download PDF</a>
+            </td>
+        </tr>
         {% else %}
-            <p class="mt-4">No bookings found.</p>
-        {% endif %}
-    </div>
-</body>
-</html>
+        <tr>
+            <td colspan="9" style="text-align:center;">No bookings found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Bookings by Airline</h2>
+<canvas id="airlineChart" width="400" height="400"></canvas>
+
+<script>
+    // Flask variables passed as JSON
+    const labels = {{ labels | tojson }};
+    const chartData = {{ data | tojson }};
+
+    // Chart.js data object (rename variable to avoid conflict)
+    const configData = {
+        labels: labels,
+        datasets: [{
+            label: 'Number of Bookings',
+            data: chartData,
+            backgroundColor: [
+                '#4CAF50',
+                '#FF6384',
+                '#36A2EB',
+                '#FFCE56',
+                '#8A2BE2',
+                '#FF7F50',
+                '#9ACD32',
+                '#F39C12',
+                '#2ECC71',
+                '#E67E22'
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    // Chart.js config object
+    const config = {
+        type: 'pie',
+        data: configData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                title: {
+                    display: true,
+                    text: 'Bookings Distribution by Airline',
+                    font: {
+                        size: 18,
+                        weight: 'bold'
+                    }
+                }
+            }
+        }
+    };
+
+    // Render chart
+    const ctx = document.getElementById('airlineChart').getContext('2d');
+    new Chart(ctx, config);
+</script>

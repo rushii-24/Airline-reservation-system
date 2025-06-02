@@ -1,73 +1,141 @@
+<!-- templates/ticket.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Flight E-Ticket</title>
+    <title>FlyBook E-Ticket</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            color: #333;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f3f4f6;
         }
-        .ticket-container {
-            background-color: #fff;
+        .ticket {
+            max-width: 750px;
+            margin: auto;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e5e7eb;
+        }
+        .header {
+            background: linear-gradient(to right, #6366f1, #8b5cf6);
+            color: white;
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .ticket-header {
             text-align: center;
-            font-size: 26px;
-            margin-bottom: 20px;
-            color: #2C3E50;
         }
-        .ticket-header p {
-            font-size: 16px;
-            color: #95A5A6;
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
         }
-        .ticket-details {
-            margin-top: 20px;
+        .section {
+            padding: 20px 30px;
         }
-        .ticket-details p {
+        .section-title {
+            font-weight: 600;
+            color: #4f46e5;
+            margin-bottom: 12px;
             font-size: 18px;
-            line-height: 1.6;
         }
-        .ticket-details p strong {
-            font-weight: bold;
-            color: #2C3E50;
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #e5e7eb;
         }
-        hr {
-            border: 1px solid #E1E1E1;
-            margin: 20px 0;
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        .info-label {
+            color: #6b7280;
+            font-weight: 500;
+        }
+        .info-value {
+            color: #111827;
+            font-weight: 600;
         }
         .footer {
-            text-align: center;
+            background: #f9fafb;
+            padding: 16px 30px;
             font-size: 14px;
-            color: #95A5A6;
-            margin-top: 30px;
+            color: #6b7280;
+            text-align: center;
+        }
+        .barcode {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .barcode img {
+            max-height: 60px;
         }
     </style>
 </head>
 <body>
-    <div class="ticket-container">
-        <div class="ticket-header">
-            <h2>Flight E-Ticket</h2>
-            <p>Booking ID: {{ booking['id'] }}</p>
+    <div class="ticket">
+        <div class="header">
+            <h1>FlyBook E-Ticket</h1>
+            <p>Your confirmed flight booking ✈️</p>
         </div>
-        <div class="ticket-details">
-            <p><strong>Passenger Name:</strong> {{ booking['name'] }}</p>
-            <p><strong>Airline:</strong> {{ booking['airline'] }}</p>
-            <p><strong>Departure Time:</strong> {{ booking['departure'] }}</p>
-            <p><strong>From:</strong> {{ booking['origin'] }} <strong>to</strong> {{ booking['destination'] }}</p>
-            <p><strong>Ticket Price:</strong> ${{ booking['price'] }}</p>
+
+        <div class="section">
+            <div class="section-title">Flight Details</div>
+            <div class="info-row">
+                <div class="info-label">From</div>
+                <div class="info-value">{{ flight.origin }}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">To</div>
+                <div class="info-value">{{ flight.destination }}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Airline</div>
+                <div class="info-value">{{ flight.airline }}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Departure</div>
+                <div class="info-value">{{ flight.departure }}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Booking ID</div>
+                <div class="info-value">#{{ booking_id }}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Total Fare</div>
+                <div class="info-value">₹{{ flight.price }}</div>
+            </div>
         </div>
-        <hr>
-        <p>Thank you for booking with us! We hope you have a pleasant flight.</p>
+
+        <div class="section">
+            <div class="section-title">Passenger Details</div>
+            {% for p in passengers %}
+            <div class="info-row">
+                <div class="info-label">Passenger {{ loop.index }}</div>
+                <div class="info-value">{{ p.name }} ({{ p.age }} yrs, {{ p.gender }})</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="section">
+            <div class="section-title">Contact Info</div>
+            <div class="info-row">
+                <div class="info-label">Name</div>
+                <div class="info-value">{{ name }}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Email</div>
+                <div class="info-value">{{ email }}</div>
+            </div>
+        </div>
+
+        <div class="barcode">
+            <img src="{{ url_for('static', filename='images/barcode.png') }}" alt="Barcode">
+            <p style="font-size: 12px; color: #9ca3af;">Show this at the airport counter</p>
+        </div>
+
         <div class="footer">
-            <p>For any inquiries, please contact our support team.</p>
+            © FlyBook 2025 | This is a computer-generated ticket. No signature required.
         </div>
     </div>
 </body>

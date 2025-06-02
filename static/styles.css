@@ -1,6 +1,17 @@
 /* =============================
-   General Styles
+   Global Variables & Reset
 ============================= */
+:root {
+    --primary-color: #1abc9c;
+    --primary-dark: #16a085;
+    --secondary-color: #3498db;
+    --secondary-dark: #2980b9;
+    --text-color: #2c3e50;
+    --bg-light: #f5f5f5;
+    --bg-dark: #2c3e50;
+    --white: #ffffff;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -8,23 +19,25 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* =============================
+   Base Body & Typography
+============================= */
 body {
-    background: linear-gradient(135deg, #f0f0f0, #e6e6e6);
-    color: #333;
-    line-height: 1.6;
-    margin: 0;
+    background: linear-gradient(135deg, #e6e6e6, #f0f0f0);
+    color: var(--text-color);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    line-height: 1.6;
 }
 
 /* =============================
-   Navigation Bar
+   Navbar
 ============================= */
 nav {
-    background: #2c3e50;
-    color: #fff;
-    padding: 15px 30px;
+    background: var(--bg-dark);
+    color: var(--white);
+    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -32,16 +45,15 @@ nav {
 }
 
 nav a {
-    color: #fff;
+    color: var(--white);
     text-decoration: none;
-    padding: 10px 20px;
-    transition: 0.3s;
+    padding: 0.75rem 1.25rem;
+    border-radius: 6px;
+    transition: background 0.3s;
 }
 
 nav a:hover {
-    background: #1abc9c;
-    color: #fff;
-    border-radius: 5px;
+    background: var(--primary-color);
 }
 
 /* =============================
@@ -50,47 +62,51 @@ nav a:hover {
 .hero {
     background: url('https://source.unsplash.com/1600x900/?plane,travel') no-repeat center center/cover;
     height: 60vh;
-    color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-shadow: 2px 2px 4px #000;
+    color: var(--white);
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    text-align: center;
 }
 
 .hero h1 {
     font-size: 3rem;
-    margin-bottom: 20px;
+    margin-bottom: 0.5rem;
 }
 
 .hero p {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
 }
 
 /* =============================
-   Flight Cards
+   Container & Cards
 ============================= */
 .container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    margin: 30px auto;
-    max-width: 1100px;
+    gap: 1.5rem;
+    justify-content: center;
 }
 
 .card {
-    background: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    width: calc(33.333% - 20px);
-    margin: 15px;
-    transition: 0.3s;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     overflow: hidden;
+    width: 320px;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
 }
 
 .card img {
@@ -99,152 +115,92 @@ nav a:hover {
     object-fit: cover;
 }
 
-.card h2 {
-    font-size: 1.5rem;
-    padding: 15px;
-    color: #2c3e50;
+.card h2, .card h3 {
+    font-size: 1.4rem;
+    padding: 1rem;
+    color: var(--text-color);
 }
 
 .card p {
-    padding: 0 15px 15px;
-    font-size: 1rem;
+    padding: 0 1rem 1rem;
     color: #555;
+    font-size: 0.95rem;
 }
 
-.card a {
-    display: block;
+.card a,
+.card button {
+    margin: 0.5rem auto 1rem;
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
     text-align: center;
-    background: #1abc9c;
-    color: #fff;
-    padding: 10px 20px;
+    cursor: pointer;
     text-decoration: none;
     transition: 0.3s;
 }
 
-.card a:hover {
-    background: #16a085;
+.card a:hover,
+.card button:hover {
+    background: var(--primary-dark);
 }
 
 /* =============================
-   Forms and Buttons
+   Forms
 ============================= */
 form {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
     max-width: 600px;
-    margin: 30px auto;
-    padding: 20px;
-    background: #f4f4f4;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 2rem auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-form input, form select, form textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
+form input,
+form select,
+form textarea {
+    padding: 0.75rem;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 6px;
+    font-size: 1rem;
 }
 
 form button {
-    background: #3498db;
-    color: #fff;
+    background: var(--secondary-color);
+    color: var(--white);
+    padding: 0.75rem;
     border: none;
-    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 1rem;
     cursor: pointer;
-    transition: 0.3s;
+    transition: background 0.3s ease;
 }
 
 form button:hover {
-    background: #2980b9;
+    background: var(--secondary-dark);
 }
 
 /* =============================
    Footer
 ============================= */
 footer {
-    background: #2c3e50;
-    color: #fff;
+    background: var(--bg-dark);
+    color: var(--white);
     text-align: center;
-    padding: 20px;
+    padding: 1.5rem;
     margin-top: auto;
 }
 
 footer a {
-    color: #1abc9c;
+    color: var(--primary-color);
     text-decoration: none;
-    transition: 0.3s;
 }
 
 footer a:hover {
-    color: #16a085;
-}
-/* =============================
-   Search Form Styling
-============================= */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 20px 0;
-}
-
-form input, form button {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-form button {
-    background: #1abc9c;
-    color: white;
-    cursor: pointer;
-}
-
-form button:hover {
-    background: #16a085;
-}
-
-/* =============================
-   Flight List Styling
-============================= */
-.flight-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-around;
-}
-
-.card {
-    background: #f5f5f5;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 300px;
-    padding: 20px;
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: scale(1.05);
-}
-
-.card h3 {
-    color: #1abc9c;
-}
-
-.card p {
-    color: #555;
-}
-
-.card button {
-    background: #1abc9c;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.card button:hover {
-    background: #16a085;
+    color: var(--primary-dark);
 }

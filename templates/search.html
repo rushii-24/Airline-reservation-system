@@ -3,137 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <title>Search Flights</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #eef2f3;
-            padding: 20px;
-        }
-        h1 {
-            color: #333;
-        }
-        form {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-        button {
-            margin-top: 15px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            box-shadow: 0 0 5px rgba(0,0,0,0.05);
-        }
-        th, td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
-        }
-        th {
-            background-color: #f5f5f5;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 min-h-screen p-6">
+    <div class="max-w-5xl mx-auto">
+        <h1 class="text-3xl font-bold text-blue-700 mb-6">Search Flights</h1>
 
-    <h1>Search Flights</h1>
+        <form method="POST" action="/search" class="bg-white p-6 rounded-xl shadow-md grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Origin</label>
+                <input type="text" name="origin" placeholder="e.g., Mumbai"
+                    class="mt-1 w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Destination</label>
+                <input type="text" name="destination" placeholder="e.g., New York"
+                    class="mt-1 w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Airline</label>
+                <input type="text" name="airline" placeholder="e.g., Emirates"
+                    class="mt-1 w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Departure Date</label>
+                <input type="date" name="departure"
+                    class="mt-1 w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div class="col-span-2 flex gap-4">
+                <div class="w-1/2">
+                    <label class="block text-sm font-medium text-gray-700">Price Min</label>
+                    <input type="number" name="price_min" placeholder="Min"
+                        class="mt-1 w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="w-1/2">
+                    <label class="block text-sm font-medium text-gray-700">Price Max</label>
+                    <input type="number" name="price_max" placeholder="Max"
+                        class="mt-1 w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Time of Day</label>
+                <select name="time_of_day"
+                    class="mt-1 w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">-- Any --</option>
+                    <option value="morning">Morning (5AM - 12PM)</option>
+                    <option value="afternoon">Afternoon (12PM - 5PM)</option>
+                    <option value="evening">Evening (5PM - 9PM)</option>
+                    <option value="night">Night (9PM - 5AM)</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Sort By</label>
+                <select name="sort_by"
+                    class="mt-1 w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">-- None --</option>
+                    <option value="price_asc">Price (Low to High)</option>
+                    <option value="price_desc">Price (High to Low)</option>
+                    <option value="departure_asc">Departure (Earliest First)</option>
+                    <option value="departure_desc">Departure (Latest First)</option>
+                </select>
+            </div>
+            <div class="col-span-2">
+                <button type="submit"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition duration-200">
+                    More Flights
+                </button>
+            </div>
+        </form>
 
-    <form method="POST" action="/search">
-        <label>Origin:</label>
-        <input type="text" name="origin" placeholder="e.g., Mumbai">
-
-        <label>Destination:</label>
-        <input type="text" name="destination" placeholder="e.g., New York">
-
-        <label>Airline:</label>
-        <input type="text" name="airline" placeholder="e.g., Emirates">
-
-        <label>Departure Date:</label>
-        <input type="date" name="departure">
-
-        <label>Price Range:</label>
-        <input type="number" name="price_min" placeholder="Min"> - 
-        <input type="number" name="price_max" placeholder="Max">
-
-        <label>Time of Day:</label>
-        <select name="time_of_day">
-            <option value="">-- Any --</option>
-            <option value="morning">Morning (5AM - 12PM)</option>
-            <option value="afternoon">Afternoon (12PM - 5PM)</option>
-            <option value="evening">Evening (5PM - 9PM)</option>
-            <option value="night">Night (9PM - 5AM)</option>
-        </select>
-
-        <label>Sort By:</label>
-        <select name="sort_by">
-            <option value="">-- None --</option>
-            <option value="price_asc">Price (Low to High)</option>
-            <option value="price_desc">Price (High to Low)</option>
-            <option value="departure_asc">Departure (Earliest First)</option>
-            <option value="departure_desc">Departure (Latest First)</option>
-        </select>
-
-        <button type="submit">Search Flights</button>
-    </form>
-
-    {% if flights %}
-        <h2>Search Results:</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Origin</th>
-                    <th>Destination</th>
-                    <th>Airline</th>
-                    <th>Departure</th>
-                    <th>Price (INR)</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for flight in flights %}
-                <tr>
-                    <td>{{ flight.origin }}</td>
-                    <td>{{ flight.destination }}</td>
-                    <td>{{ flight.airline }}</td>
-                    <td>{{ flight.departure }}</td>
-                    <td>{{ flight.price }}</td>
-                    <td>
-                        <form action="/book/{{ flight.id }}" method="GET">
-                            <button type="submit">Book Now</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% elif flights is not none %}
-        <p>No flights found for the given criteria.</p>
-    {% endif %}
-
+        {% if flights %}
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Search Results:</h2>
+        <div class="overflow-x-auto bg-white rounded-xl shadow">
+            <table class="w-full text-left table-auto">
+                <thead class="bg-gray-100 text-gray-700">
+                    <tr>
+                        <th class="px-4 py-3">Origin</th>
+                        <th class="px-4 py-3">Destination</th>
+                        <th class="px-4 py-3">Airline</th>
+                        <th class="px-4 py-3">Departure</th>
+                        <th class="px-4 py-3">Price (INR)</th>
+                        <th class="px-4 py-3">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    {% for flight in flights %}
+                    <tr>
+                        <td class="px-4 py-2">{{ flight.origin }}</td>
+                        <td class="px-4 py-2">{{ flight.destination }}</td>
+                        <td class="px-4 py-2">{{ flight.airline }}</td>
+                        <td class="px-4 py-2">{{ flight.departure }}</td>
+                        <td class="px-4 py-2">₹{{ flight.price }}</td>
+                        <td class="px-4 py-2">
+                            <form action="/book/{{ flight.id }}" method="GET">
+                                <button type="submit"
+                                    class="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded-md transition">
+                                    Book Now
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% elif flights is not none %}
+        <p class="mt-4 text-gray-700">No flights found for the given criteria.</p>
+        {% endif %}
+    </div>
 </body>
 </html>

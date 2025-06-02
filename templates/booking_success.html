@@ -1,96 +1,53 @@
+<!-- templates/booking_success.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Booking Confirmed</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <title>Booking Confirmed | FlyBook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #74ebd5 0%, #acb6e5 100%);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
         }
-
-        .card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            max-width: 450px;
-            width: 90%;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        .card h2 {
-            color: #2b5876;
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-        }
-
-        .checkmark {
-            font-size: 3rem;
-            color: #4BB543;
-            margin-bottom: 1rem;
-        }
-
-        .details {
-            text-align: left;
-            margin-top: 1.5rem;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .details strong {
-            color: #2b5876;
-        }
-
-        .btn {
-            margin-top: 2rem;
-            display: inline-block;
-            background: #2b5876;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 10px;
-            text-decoration: none;
-            transition: background 0.3s ease;
-        }
-
-        .btn:hover {
-            background: #1f3c52;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fade-in 0.8s ease-out;
         }
     </style>
 </head>
-<body>
-    <div class="card">
-        <div class="checkmark">✅</div>
-        <h2>Booking Confirmed!</h2>
-        <p>Thank you, <strong>{{ name }}</strong> ✈️</p>
+<body class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 min-h-screen flex items-center justify-center p-6">
 
-        <div class="details">
-            <p><strong>From:</strong> {{ flight.origin }}</p>
-            <p><strong>To:</strong> {{ flight.destination }}</p>
-            <p><strong>Airline:</strong> {{ flight.airline }}</p>
-            <p><strong>Departure:</strong> {{ flight.departure }}</p>
-            <p><strong>Price:</strong> ₹{{ flight.price }}</p>
-            <p><strong>Email:</strong> {{ email }}</p>
+    <div class="bg-white rounded-3xl shadow-2xl p-10 max-w-lg w-full animate-fade-in border border-purple-100">
+        <div class="flex flex-col items-center">
+            <div class="text-green-500 text-5xl mb-3">✅</div>
+            <h1 class="text-3xl font-bold text-purple-700 mb-2">Your Booking is Confirmed!</h1>
+            <p class="text-gray-700 mb-4 text-sm">Thank you for booking with us, <strong class="text-purple-700">{{ name }}</strong> ✈️</p>
+
+            <div class="w-full bg-gray-50 rounded-xl p-5 shadow-inner text-sm text-gray-700 space-y-2 mb-6">
+                <p><span class="font-semibold text-purple-600">From:</span> {{ flight.origin }}</p>
+                <p><span class="font-semibold text-purple-600">To:</span> {{ flight.destination }}</p>
+                <p><span class="font-semibold text-purple-600">Airline:</span> {{ flight.airline }}</p>
+                <p><span class="font-semibold text-purple-600">Departure:</span> {{ flight.departure }}</p>
+                <p><span class="font-semibold text-purple-600">Price:</span> ₹{{ flight.price }}</p>
+                <p><span class="font-semibold text-purple-600">Email:</span> {{ email }}</p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 w-full">
+                <a href="{{ url_for('home') }}"
+                   class="flex-1 bg-gradient-to-r from-purple-500 to-indigo-500 text-white text-center py-3 rounded-xl font-semibold hover:from-purple-600 hover:to-indigo-600 transition">
+                    🏠 Go to Home
+                </a>
+                <a href="{{ url_for('download_ticket', booking_id=booking_id) }}"
+                   class="flex-1 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-center py-3 rounded-xl font-semibold hover:from-green-600 hover:to-emerald-600 transition">
+                    📄 Download E-Ticket
+                </a>
+            </div>
         </div>
-
-        <a href="{{ url_for('home') }}" class="btn">Go to Home</a>
-        <a href="{{ url_for('download_ticket', booking_id=booking_id) }}" class="btn btn-primary">
-            📄 Download E-Ticket (PDF)
-        </a>
-        
     </div>
+
 </body>
 </html>

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from werkzeug.security import generate_password_hash
 import mysql.connector
 
@@ -20,7 +19,7 @@ cursor.execute("INSERT INTO admin (username, password) VALUES (%s, %s)", ('RRush
 db.commit()
 
 print("✅ Admin user inserted successfully.")
-=======
+
 from werkzeug.security import generate_password_hash
 import mysql.connector
 
@@ -42,4 +41,4 @@ cursor.execute("INSERT INTO admin (username, password) VALUES (%s, %s)", ('RRush
 db.commit()
 
 print("✅ Admin user inserted successfully.")
->>>>>>> 198f162a6cb98e674d26c9d5434a455419a1cca0
+

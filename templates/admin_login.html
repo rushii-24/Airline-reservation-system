@@ -1,17 +1,136 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Admin Login</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #2c3e50;
+            --input-bg: #f5f5f5;
+            --button-bg: #3498db;
+            --button-hover: #2980b9;
+            --card-shadow: rgba(0, 0, 0, 0.2);
+        }
+
+        body.dark {
+            --bg-color: #1e1e1e;
+            --text-color: #f5f5f5;
+            --input-bg: #2c2c2c;
+            --button-bg: #2980b9;
+            --button-hover: #1c6ea4;
+            --card-shadow: rgba(0, 0, 0, 0.6);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            transition: background-color 0.4s;
+        }
+
+        .login-container {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px var(--card-shadow);
+            width: 340px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .login-container img {
+            width: 60px;
+            margin-bottom: 1rem;
+        }
+
+        .login-container h2 {
+            margin-bottom: 1rem;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+        }
+
+        .login-container input::placeholder {
+            color: #999;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--button-bg);
+            border: none;
+            color: white;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .login-container button:hover {
+            background-color: var(--button-hover);
+        }
+
+        .dark-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #fff;
+            color: #333;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        body.dark .dark-toggle {
+            background: #333;
+            color: #fff;
+        }
+
+        .error-message {
+            color: red;
+            margin-bottom: 1rem;
+        }
+    </style>
 </head>
 <body>
-    <h2>Admin Login</h2>
-    {% if error %}
-        <p style="color:red">{{ error }}</p>
-    {% endif %}
-    <form method="POST">
-        <input type="text" name="username" placeholder="Username" required><br>
-        <input type="password" name="password" placeholder="Password" required><br>
-        <button type="submit">Login</button>
-    </form>
+    <button class="dark-toggle" onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
+    <div class="login-container">
+        <img src="https://cdn-icons-png.flaticon.com/512/1086/1086741.png" alt="Airplane Logo">
+        <h2>Admin Login</h2>
+        {% if error %}
+            <p class="error-message">{{ error }}</p>
+        {% endif %}
+        <form method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark");
+        }
+    </script>
 </body>
 </html>
